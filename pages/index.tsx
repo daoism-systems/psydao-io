@@ -172,7 +172,7 @@ const Homepage: NextPage = () => {
                       text={
                         !totalTokensForSaleValue ||
                         totalTokensForSaleValue === "0.00"
-                          ? ["PSY TOKEN SOLD OUT."]
+                        ? ["DESCENTRALIZE PSYCHEDELICS"]
                           : [
                               "PSYDAO",
                               "WHO CARES?",
