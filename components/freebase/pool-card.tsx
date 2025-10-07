@@ -18,6 +18,8 @@ import {
   FreebaseUserPoolPosition
 } from "@/lib/services/freebase";
 
+import useGetApyDetails from "@/hooks/useGetApyDetails";
+
 interface PoolCardProps {
   pool: {
     id: number;
@@ -78,6 +80,12 @@ export function PoolCard({
     setAmount("");
   };
 
+  const handleClaim = () => {
+    deposit({ amount: "0" });
+  };
+
+  const { apy: apyDetails } = useGetApyDetails(pool.id.toString());
+
   return (
     <Card
       borderColor="#F2BEBE"
@@ -87,33 +95,57 @@ export function PoolCard({
     >
       <CardHeader pb={0}>
         <Flex justify="space-between" align="center">
-          <Text fontSize="md" fontWeight="medium">
-            Pool #{pool.id}
-          </Text>
-          <Text
-            bg="#FBF6F8"
-            px={3}
-            py={1}
-            borderRadius="full"
-            fontSize="sm"
-            position="relative"
-            overflow="hidden"
-            _after={{
-              content: '""',
-              position: "absolute",
-              top: "0",
-              left: "0",
-              width: "100%",
-              height: "100%",
-              background:
-                "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-              transform: "translateX(-100%)",
-              animation: "shimmer 2s infinite"
-            }}
-          >
-            {symbol}
-          </Text>
+          <Flex gap={2} align={"center"}>
+            <Text fontSize="md" fontWeight="medium">
+              Pool #{pool.id}
+            </Text>
+            <Text
+              bg="#FBF6F8"
+              px={3}
+              py={1}
+              borderRadius="full"
+              fontSize="sm"
+              position="relative"
+              overflow="hidden"
+              _after={{
+                content: '""',
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%",
+                background:
+                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                transform: "translateX(-100%)",
+                animation: "shimmer 2s infinite"
+              }}
+            >
+              {symbol}
+            </Text>
+          </Flex>
+          {pendingRewards && (
+            <Button
+              onClick={handleClaim}
+              bg="linear-gradient(90deg, #F2BEBE, #F77CC2)"
+              border="2px solid #F2BEBE"
+              color="black"
+              fontSize={{ base: "12px", md: "16px" }}
+              isDisabled={poolInteractionPending}
+              _hover={{ opacity: 0.9 }}
+            >
+              Claim
+            </Button>
+          )}
         </Flex>
+        {apyDetails?.apy && apyDetails.apy > 0 ? (
+          <Flex gap={2} align={"center"}>
+            <Text fontSize="md" fontWeight="medium" mb={4}>
+              APY: {apyDetails?.apy}%
+            </Text>
+          </Flex>
+        ) : (
+          <></>
+        )}
       </CardHeader>
 
       <CardBody
@@ -127,12 +159,14 @@ export function PoolCard({
           </Text>
         )}
         {pendingRewards && (
-          <Text fontSize="sm" color="gray.600" mb={4}>
-            Pending Rewards:{" "}
-            {pendingRewards && BigInt(pendingRewards) > BigInt(0)
-              ? Number(formatUnits(pendingRewards, 18)).toFixed(2)
-              : formatUnits(pendingRewards, 18)}
-          </Text>
+          <div className="flex justify-between items-center">
+            <Text fontSize="sm" color="gray.600" mb={4}>
+              Pending Rewards:{" "}
+              {pendingRewards && BigInt(pendingRewards) > BigInt(0)
+                ? Number(formatUnits(pendingRewards, 18)).toFixed(2)
+                : formatUnits(pendingRewards, 18)}
+            </Text>
+          </div>
         )}
 
         <Input
@@ -168,7 +202,6 @@ export function PoolCard({
         {userPoolPosition?.amount && userPoolPosition.amount > BigInt("0") && (
           <Button
             onClick={handleWithdraw}
-            // bg="linear-gradient(90deg, #F2BEBE, #F77CC2)"
             bg={"transparent"}
             border="2px solid #F2BEBE"
             color="black"

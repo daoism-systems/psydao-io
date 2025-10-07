@@ -4,6 +4,7 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     CHAINALYSIS_API_KEY: z.string().min(1),
+    CODEX_API_KEY: z.string().min(1),
     PINATA_API_KEY: z.string().min(1),
     PINATA_SECRET_API_KEY: z.string().min(1),
     PINATA_ADMIN_JWT: z.string().min(1),
@@ -27,9 +28,9 @@ export const env = createEnv({
     NEXT_PUBLIC_MIXPANEL_ID: z.string(),
     NEXT_PUBLIC_PROJECT_ID: z.string(),
     NEXT_PUBLIC_SUBGRAPH_URL: z.string().url(),
-    NEXT_PUBLIC_FREEBASE_SUBGRAPH_URL: z.string().url(),
     NEXT_PUBLIC_MAINNET_SUBGRAPH_URL: z.string().url(),
     NEXT_PUBLIC_PINATA_BASE_URL: z.string().url(),
+
     NEXT_PUBLIC_ETHERSCAN_BASE_URL: z.string().url(),
     NEXT_PUBLIC_MAINNET_ETHERSCAN_BASE_URL: z.string().url(),
     NEXT_PUBLIC_SEPOLIA_ETHERSCAN_BASE_URL: z.string().url(),
@@ -42,6 +43,7 @@ export const env = createEnv({
   },
   runtimeEnv: {
     CHAINALYSIS_API_KEY: process.env.CHAINALYSIS_API_KEY,
+    CODEX_API_KEY: process.env.CODEX_API_KEY,
     NEXT_PUBLIC_FREEBASE_CONTRACT_ADDRESS:
       process.env.NEXT_PUBLIC_FREEBASE_CONTRACT_ADDRESS,
     PINATA_API_KEY: process.env.PINATA_API_KEY,
@@ -57,9 +59,7 @@ export const env = createEnv({
     SHOPIFY_VARIANT_ID: process.env.SHOPIFY_VARIANT_ID,
     POAP_API_KEY: process.env.POAP_API_KEY,
     POAP_EVENT_ID: process.env.POAP_EVENT_ID,
-
     SNAPSHOT_GRAPHQL_URL: process.env.SNAPSHOT_GRAPHQL_URL,
-
     NEXT_PUBLIC_IS_MAINNET: Number(process.env.NEXT_PUBLIC_CHAIN_ID) === 1,
     NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
     NEXT_PUBLIC_CHAIN_ID: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
@@ -71,8 +71,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SUBGRAPH_URL: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
     NEXT_PUBLIC_MAINNET_SUBGRAPH_URL:
       process.env.NEXT_PUBLIC_MAINNET_SUBGRAPH_URL,
-    NEXT_PUBLIC_FREEBASE_SUBGRAPH_URL:
-      process.env.NEXT_PUBLIC_FREEBASE_SUBGRAPH_URL,
+
     NEXT_PUBLIC_PINATA_BASE_URL: process.env.NEXT_PUBLIC_PINATA_BASE_URL,
     NEXT_PUBLIC_ETHERSCAN_BASE_URL:
       Number(process.env.NEXT_PUBLIC_CHAIN_ID) === 1
