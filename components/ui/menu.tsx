@@ -130,7 +130,7 @@ export const Menu = () => {
             </MenuItem>
           </Open>
           <Link
-            href="https://docs.google.com/forms/d/e/1FAIpQLSclWo6ALQ-atJtrE0CQ4ft-JmXWIkaRVpg0cTqhvfKOHLhSCQ/viewform"
+            href="https://forms.gle/7oiZW67QiQPhi3T99"
             target="_blank"
             _hover={{ textDecor: "none" }}
           >
@@ -164,14 +164,14 @@ export const Menu = () => {
             target="_blank"
             _hover={{ textDecor: "none" }}
           ></Link>
-          <Open id="swap">
+          <Open id="vesting">
             <MenuItem
               fontStyle="italic"
               onClick={() =>
-                MixpanelTracking.getInstance().menuLinkClicked("swap")
+                MixpanelTracking.getInstance().menuLinkClicked("vesting")
               }
             >
-              Buy PSY
+              PSY Vesting
             </MenuItem>
           </Open>
           {/* Visible by default until we wire up the private sale + whitelist functionalities */}
